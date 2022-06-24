@@ -1,5 +1,4 @@
 import './App.css';
-import { getValue } from '@testing-library/user-event/dist/utils';
 import React from 'react';
 
 var lastInput = "None";
@@ -8,17 +7,18 @@ var fahrenheit = 0;
 var kelvin = 0;
 
 class App extends React.Component {
+  constructor(props: any) {
+    super(props);
+  }
+
+  handleOnChange = (key: string, value: string) => {
+    updateData(key, value);
+  }
+
   render() {
-    const updateElements = () => {
-      calculadora = <Calculadora celsius={celsius} fahrenheit={fahrenheit} kelvin={kelvin} funcion={updateElements}></Calculadora>
-      this.forceUpdate();
-    }
-
-    var calculadora = <Calculadora celsius={""} fahrenheit={""} kelvin={""} funcion={updateElements}></Calculadora>
-
     return (
       <div className="App">
-        {calculadora}
+        <Calculadora onChange={this.handleOnChange} lastInput={lastInput}></Calculadora>
       </div>
     );
   }
@@ -26,52 +26,60 @@ class App extends React.Component {
 
 export default App;
 
-const Calculadora = (props: any) => {
-  return (
-    <div>
-      <h1>Last Input {lastInput}</h1>
-      <h2>Celsius</h2>
-      <input 
-        type="number" 
-        onChange={(event) => {
-          updateFrom("celsius", event.target.value);
-          props.funcion();
-        }}
-        id="celsius">
-        </input>
+class Calculadora extends React.Component {
+  constructor(props: any) {
+    super(props);
+  }
 
-      <h2>Fahrenheit</h2>
-      <input type="number"
-        onChange={(event) => {
-          updateFrom("fahrenheit", event.target.value);
-          props.funcion();
-        }} id="fahrenheit"></input>
-      <h2>Kelvin</h2>
-      <input type="number"
-        onChange={(event) => {
-          updateFrom("kelvin", event.target.value);
-          props.funcion();
-        }} id="kelvin"></input>
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <h1>Last Input {this.props.lastInput}</h1>
+  
+        <h2>Celsius</h2>
+        <input 
+          type="number" 
+          onChange={(event) => {this.props.onChange("celsius", event.target.value)}}
+          id="celsius">
+        </input>
+  
+        <h2>Fahrenheit</h2>
+        <input
+          type="number"
+          onChange={(event) => {this.props.onChange("fahrenheit", event.target.value);}}
+          id="fahrenheit">
+        </input>
+  
+        <h2>Kelvin</h2>
+        <input
+          type="number"
+          onChange={(event) => {this.props.onChange("kelvin", event.target.value);}}
+          id="kelvin">
+        </input>
+      </div>
+    );
+  }
 }
 
-function updateFrom(key: string, value: string) {
+function updateData(key: string, value: string) {
   lastInput = key;
   switch(key) {
     case "celsius": {
+      lastInput = "celsius";
       celsius = +value;
       fahrenheit = celsiusToFahrenheit(celsius);
       kelvin = celsiusToKelvin(celsius);
       break;
     }
     case "fahrenheit": {
+      lastInput = "fahrenheit";
       fahrenheit = +value;
       celsius = fahrenheitToCelsius(fahrenheit);
       kelvin = fahrenheitToKelvin(fahrenheit);
       break;
     }
     case "kelvin": {
+      lastInput = "kelvin";
       kelvin = +value;
       celsius = kelvinToCelsius(kelvin);
       fahrenheit = kelvinToFahrenheit(kelvin);
