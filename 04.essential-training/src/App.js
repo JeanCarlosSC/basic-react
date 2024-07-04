@@ -1,9 +1,9 @@
 import "./App.css";
 
-function Header() {
+function Header(props) {
   return (
     <header>
-      <h1>JeanK's kitchen</h1>
+      <h1>{props.name}'s kitchen</h1>
     </header>
   );
 }
@@ -12,11 +12,16 @@ function Main() {
   return <p>We serve the most delicious food around.</p>;
 }
 
+function Footer(props) {
+  return <footer>Copyright {props.year}</footer>;
+}
+
 function App() {
   return (
     <>
-      <Header />
+      <Header name="Cindy" />
       <Main />
+      <Footer year={2024} />
     </>
   );
 }
