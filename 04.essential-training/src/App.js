@@ -9,12 +9,27 @@ function Header(props) {
 }
 
 function Main() {
-  return <p>We serve the most delicious food around.</p>;
+  return (
+    <>
+      <p>We serve the most delicious food around.</p>
+      <ul>
+        {dishes.map((dish) => (
+          <li>{dish}</li>
+        ))}
+      </ul>
+    </>
+  );
 }
 
 function Footer(props) {
   return <footer>Copyright {props.year}</footer>;
 }
+
+const dishes = [
+  "Black Bean Soup",
+  "Macaroni and Cheese",
+  "Salmon and Potatoes",
+];
 
 function App() {
   return (
