@@ -8,13 +8,13 @@ function Header(props) {
   );
 }
 
-function Main() {
+function Main(props) {
   return (
     <>
       <p>We serve the most delicious food around.</p>
       <ul>
-        {dishes.map((dish) => (
-          <li>{dish}</li>
+        {props.dishes.map((dish) => (
+          <li key={dish.id}>{dish.title}</li>
         ))}
       </ul>
     </>
@@ -31,11 +31,16 @@ const dishes = [
   "Salmon and Potatoes",
 ];
 
+const dishObjects = dishes.map((dish, i) => ({
+  id: i,
+  title: dish,
+}));
+
 function App() {
   return (
     <>
       <Header name="Cindy" />
-      <Main />
+      <Main dishes={dishObjects} />
       <Footer year={2024} />
     </>
   );
