@@ -1,9 +1,10 @@
 import "./App.css";
 
-function Header(props) {
+// destructuring
+function Header({ name }) {
   return (
     <header>
-      <h1>{props.name}'s kitchen</h1>
+      <h1>{name}'s kitchen</h1>
     </header>
   );
 }
@@ -50,5 +51,10 @@ function App() {
     </>
   );
 }
+
+// Destructuring arrays
+const [firstCity, secondCity] = ["Tokyo", "Bend"];
+
+console.log(firstCity, secondCity);
 
 export default App;
