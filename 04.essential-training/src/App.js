@@ -10,14 +10,19 @@ function Header(props) {
 
 function Main(props) {
   return (
-    <>
+    <section>
+      <img
+        width={300}
+        src="./restaurant.jpg"
+        alt="A server presents two plates at a fancy restaurant."
+      ></img>
       <p>We serve the most delicious food around.</p>
       <ul>
         {props.dishes.map((dish) => (
           <li key={dish.id}>{dish.title}</li>
         ))}
       </ul>
-    </>
+    </section>
   );
 }
 
@@ -41,7 +46,7 @@ function App() {
     <>
       <Header name="Cindy" />
       <Main dishes={dishObjects} />
-      <Footer year={2024} />
+      <Footer year={new Date().getFullYear()} />
     </>
   );
 }
